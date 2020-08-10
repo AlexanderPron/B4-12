@@ -35,5 +35,10 @@ class UserRegister():
 
     def isUserInDB(self, id): # Метод для проверки наличия такого пользователя в БД
         self.id = id
+        self.user_ids = [self.user.id for self.user in self.session.query(User).all()]
+        if self.id in self.user_ids:
+            return True
+        else:
+            return False
          
 
