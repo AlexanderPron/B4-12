@@ -2,7 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
-class User(Base):
+class UserDB(Base):
     __tablename__ = "user"
     id = sa.Column(sa.INTEGER, primary_key=True)
     first_name = sa.Column(sa.TEXT)
@@ -12,33 +12,22 @@ class User(Base):
     birthdate = sa.Column(sa.TEXT)
     height = sa.Column(sa.REAL)
 class UserRegister():
-    def __init__(self, db_path): # В конструкторе будем создавать соединение с базой данных (далее БД)
+    def __init__(self, db_path, userData): # В конструкторе получем введенные данные нового пользователя
         self.db_path = db_path
+        self.userData = userData
+        self.first_name = self.userData[0]
+        self.last_name = self.userData[1]
+        self.gender = self.userData[2]
+        self.email = self.userData[3]
+        self.birthdate = self.userData[4]
+        self.height = self.userData[5]
+    def addUserToDB(self): # Метод для добавления данных нового пользователя в БД
         self.engine = sa.create_engine(self.db_path)
         self.Sessions = sessionmaker(self.engine)
         self.session = self.Sessions()
-    def addUser(self): # Метод для добавления данных нового пользователя в БД
-        self.first_name = input('Enter user Name:')
-        self.last_name = input('Enter last name:')
-        self.gender = input('Enter gender:')
-        self.email = input('Enter email:')
-        self.birthdate = input('Enter birthday:')
-        self.height = input('Enter height:')
-        self.newUser = User(first_name = self.first_name, last_name = self.last_name, gender = self.gender, email = self.email, birthdate = self.birthdate, height = self.height)
+        self.newUser = UserDB(first_name = self.first_name, last_name = self.last_name, gender = self.gender, email = self.email, birthdate = self.birthdate, height = self.height)
         self.session.add(self.newUser)
         self.session.commit()
-        print('User {} {} added..'.format(self.first_name, self.last_name))
-    def showDB(self):
-        self.query = self.session.query(User).all()
-        for item in self.query:
-            print('{}|{}|{}|{}|{}|{}|{}'.format(item.id,item.first_name,item.last_name,item.gender, item.email, item.birthdate, item.height))
 
-    def isUserInDB(self, id): # Метод для проверки наличия такого пользователя в БД
-        self.id = id
-        self.user_ids = [self.user.id for self.user in self.session.query(User).all()]
-        if self.id in self.user_ids:
-            return True
-        else:
-            return False
          
 
