@@ -50,3 +50,10 @@ class DBMethods():
         self.id = id
         self.session.query(UserDB).filter_by(id=self.id).delete()
         self.session.commit()
+
+    def findCloseAthelets(self, id):
+        self.id = id
+        self.userRecord = self.session.query(UserDB).filter_by(id=self.id)
+        # self.userBirthday = self.userRecord.birthdate
+        # self.userHeight = self.userRecord.height
+        # print('dr: {}, rost: {}'.format(self.userBirthday, self.userHeight))
