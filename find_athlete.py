@@ -53,7 +53,11 @@ class DBMethods():
 
     def findCloseAthelets(self, id):
         self.id = id
-        self.userRecord = self.session.query(UserDB).filter_by(id=self.id)
-        # self.userBirthday = self.userRecord.birthdate
-        # self.userHeight = self.userRecord.height
-        # print('dr: {}, rost: {}'.format(self.userBirthday, self.userHeight))
+        self.userRecord = self.session.query(UserDB).filter_by(id=self.id).first()
+        self.userBirthday = self.userRecord.birthdate
+        self.userHeight = self.userRecord.height
+        # select * from athelete where height > 0 order by abs(150-height*100) limit 1;
+        self.closeByHeightAthelete = self.session.query(AtheleteDB).filter(AtheleteDB.height > 0).order_by(abs(AtheleteDB.height*100 - self.userHeight)).first()
+        print(self.closeByHeightAthelete.height)
+
+        

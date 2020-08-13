@@ -48,7 +48,7 @@ def enterUserData():
 def main():
     
     while True:
-        print('What do you want to do?\nType 1, 2, 3 or 4\n1 - add new user\n2 - find most close user by user`s id to athlet from athlet`s db\n3 - show user`s db\n4 - delete record by id\n5 - quit')
+        print('What do you want to do?\nType 1, 2, 3, 4 or 5\n1 - add new user\n2 - find most close user by user`s id to athlet from athlet`s db\n3 - show user`s db\n4 - delete record by id\n5 - quit')
         choose = input('-> ')
         if choose == '1':
             newUserData = enterUserData() # Вводим данные нового пользователя
