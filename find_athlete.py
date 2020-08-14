@@ -1,6 +1,8 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime, date, time
+import time
 Base = declarative_base()
 class UserDB(Base):
     __tablename__ = "user"
@@ -58,6 +60,8 @@ class DBMethods():
         self.userHeight = self.userRecord.height
         # select * from athelete where height > 0 order by abs(150-height*100) limit 1;
         self.closeByHeightAthelete = self.session.query(AtheleteDB).filter(AtheleteDB.height > 0).order_by(sa.func.abs(AtheleteDB.height*100 - self.userHeight)).first()
-        print(self.closeByHeightAthelete.height)
+        self.closeByBirthdayAthelete = self.session.query(AtheleteDB).order_by(sa.func.abs(AtheleteDB.birthdate - self.userBirthday)).first()
+        print('{}:{}'.format(self.closeByBirthdayAthelete.id, self.closeByBirthdayAthelete.birthdate))
+
 
         
