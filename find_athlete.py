@@ -11,13 +11,15 @@ class UserDB(Base):
     last_name = sa.Column(sa.TEXT)
     gender = sa.Column(sa.TEXT)
     email = sa.Column(sa.TEXT)
-    birthdate = sa.Column(sa.TEXT)
+    # birthdate = sa.Column(sa.TEXT)
+    birthdate = sa.Column(sa.DATE)
     height = sa.Column(sa.REAL)
 class AtheleteDB(Base):
     __tablename__ = "athelete"
     id = sa.Column(sa.INTEGER, primary_key=True)
     age = sa.Column(sa.INTEGER)
-    birthdate = sa.Column(sa.TEXT)
+    # birthdate = sa.Column(sa.TEXT)
+    birthdate = sa.Column(sa.DATE)
     gender = sa.Column(sa.TEXT)
     height = sa.Column(sa.REAL)
     name = sa.Column(sa.TEXT)
